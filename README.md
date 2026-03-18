@@ -170,7 +170,7 @@ Tasks are labeled `(BE)` backend, `(FE)` frontend, or `(INFRA)` infrastructure. 
 - [OK] **5.2.7** (INFRA) Create `docker-compose.override.yml` for dev — mount backend source for hot reload, mount frontend src for HMR, set DEBUG=1
 - [OK] **5.2.8** (INFRA) Create `.env.example` with all required env vars: `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `DATABASE_URL`, `REDIS_URL`, `SECRET_KEY`, `DEBUG`, `ALLOWED_HOSTS`, `CELERY_BROKER_URL`, `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`, `FRONTEND_URL`
 - [OK] **5.2.9** (INFRA) Create `Makefile` with targets: `up`, `down`, `build`, `test-be`, `test-fe`, `migrate`, `shell`, `logs`, `seed`
-- [!OK] **5.2.10** (INFRA) Verify `docker-compose up` starts all 8 services without errors
+- [OK] **5.2.10** (INFRA) Verify `docker-compose up` starts all 8 services without errors
 
 #### GitHub Actions CI
 

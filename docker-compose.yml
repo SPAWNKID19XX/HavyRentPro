@@ -42,7 +42,6 @@ services:
       - media_data:/app/media
     networks:
       - heavyrent_network
-    entrypoint: /app/docker/backend/entrypoint.sh 
 
   celery-worker:
     build:                                                                    
