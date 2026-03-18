@@ -161,8 +161,8 @@ Tasks are labeled `(BE)` backend, `(FE)` frontend, or `(INFRA)` infrastructure. 
 
 #### Docker and Nginx
 
-- [!OK] **5.2.1** (INFRA) Create `docker/backend/Dockerfile` — Python 3.11-slim base, install system deps including WeasyPrint dependencies (libpango, libcairo, libgdk-pixbuf), pip install requirements, expose 8000, CMD daphne
-- [!OK] **5.2.2** (INFRA) Create `docker/backend/entrypoint.sh` — wait for PostgreSQL readiness, run migrate, collectstatic, then execute CMD
+- [OK] **5.2.1** (INFRA) Create `docker/backend/Dockerfile` — Python 3.11-slim base, install system deps including WeasyPrint dependencies (libpango, libcairo, libgdk-pixbuf), pip install requirements, expose 8000, CMD daphne
+- [OK] **5.2.2** (INFRA) Create `docker/backend/entrypoint.sh` — wait for PostgreSQL readiness, run migrate, collectstatic, then execute CMD
 - [!OK] **5.2.3** (INFRA) Create `docker/frontend/Dockerfile` — Node 20-alpine base, multi-stage: dev target uses Vite dev server, prod target builds with Vite and serves via Nginx
 - [!OK] **5.2.4** (INFRA) Create `docker/nginx/nginx.conf` — proxy `/api/`, `/admin/`, `/ws/` to backend (with WebSocket upgrade headers for `/ws/`); serve `/media/` from volume; proxy `/*` to frontend
 - [!OK] **5.2.5** (INFRA) Create `docker/nginx/Dockerfile` — FROM nginx:alpine, copy config
