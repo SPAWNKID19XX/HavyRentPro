@@ -54,8 +54,8 @@ jobs:
         run: pip install -r backend/requirements.txt                                            
       - name: Run migrations
         run: python backend/manage.py migrate                                                 
-      - name: Run tests
-        run: cd backend && pytest --cov=  
+      - name: Run tests 
+        run: cd backend && pytest --cov=.
       - name: Upload coverage                                                                            
         uses: actions/upload-artifact@v5
         with:                                                                                            
