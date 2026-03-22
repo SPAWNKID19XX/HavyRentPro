@@ -174,15 +174,15 @@ Tasks are labeled `(BE)` backend, `(FE)` frontend, or `(INFRA)` infrastructure. 
 
 #### GitHub Actions CI
 
-- [ ] **6.2.1** (INFRA) Create `.github/workflows/ci.yml` — triggers on push to `master`/`develop` and PRs to `master`; runs 5 parallel jobs
-- [ ] **6.2.2** (INFRA) Implement `backend-lint` job — setup Python 3.11, install Ruff, run `ruff check backend/` and `ruff format --check backend/`
-- [ ] **6.2.3** (INFRA) Implement `backend-test` job — spin up postgres:15 and redis:7 services with health checks, install requirements, run pytest with coverage, upload coverage artifact
+- [OK] **6.2.1** (INFRA) Create `.github/workflows/ci.yml` — triggers on push to `master`/`develop` and PRs to `master`; runs 5 parallel jobs
+- [OK] **6.2.2** (INFRA) Implement `backend-lint` job — setup Python 3.11, install Ruff, run `ruff check backend/` and `ruff format --check backend/`
+- [OK] **6.2.3** (INFRA) Implement `backend-test` job — spin up postgres:16 and redis:7 services with health checks, install requirements, run pytest with coverage, upload coverage artifact
 - [ ] **6.2.4** (INFRA) Implement `frontend-lint` job — setup Node 20, cache node_modules, `npm ci`, run ESLint and `tsc --noEmit`
 - [ ] **6.2.5** (INFRA) Implement `frontend-test` job — setup Node 20, `npm ci`, run Vitest with coverage
 - [ ] **6.2.6** (INFRA) Implement `frontend-build` job — setup Node 20, `npm ci`, run Vite production build
-- [ ] **6.2.7** (INFRA) Create `backend/pytest.ini` (or `pyproject.toml` pytest section) — set `DJANGO_SETTINGS_MODULE=config.settings.test`, `python_files=test_*.py`, verbosity flags
+- [OK] **6.2.7** (INFRA) Create `backend/pytest.ini` (or `pyproject.toml` pytest section) — set `DJANGO_SETTINGS_MODULE=config.settings.test`, `python_files=test_*.py`, verbosity flags
 - [ ] **6.2.8** (INFRA) Create `backend/conftest.py` placeholder — shared fixtures will be filled in Phase 7
-- [ ] **6.2.9** (BE) Create `config/settings/test.py` — inherit from base, use in-memory file storage, console email backend, `CELERY_TASK_ALWAYS_EAGER=True`, disabled throttling, MD5 password hasher
+- [OK] **6.2.9** (BE) Create `config/settings/test.py` — inherit from base, use in-memory file storage, console email backend, `CELERY_TASK_ALWAYS_EAGER=True`, disabled throttling, MD5 password hasher
 
 ---
 
