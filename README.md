@@ -181,7 +181,7 @@ Tasks are labeled `(BE)` backend, `(FE)` frontend, or `(INFRA)` infrastructure. 
 - [ ] **6.2.5** (INFRA) Implement `frontend-test` job — setup Node 20, `npm ci`, run Vitest with coverage
 - [ ] **6.2.6** (INFRA) Implement `frontend-build` job — setup Node 20, `npm ci`, run Vite production build
 - [OK] **6.2.7** (INFRA) Create `backend/pytest.ini` (or `pyproject.toml` pytest section) — set `DJANGO_SETTINGS_MODULE=config.settings.test`, `python_files=test_*.py`, verbosity flags
-- [ ] **6.2.8** (INFRA) Create `backend/conftest.py` placeholder — shared fixtures will be filled in Phase 7
+- [OK] **6.2.8** (INFRA) Create `backend/conftest.py` placeholder — shared fixtures will be filled in Phase 7
 - [OK] **6.2.9** (BE) Create `config/settings/test.py` — inherit from base, use in-memory file storage, console email backend, `CELERY_TASK_ALWAYS_EAGER=True`, disabled throttling, MD5 password hasher
 
 ---
@@ -190,7 +190,7 @@ Tasks are labeled `(BE)` backend, `(FE)` frontend, or `(INFRA)` infrastructure. 
 
 #### 1.1 `core` App — Shared Utilities
 
-- [ ] **1.1.1** (BE) Create the `core` app package with `__init__.py`
+- [OK] **1.1.1** (BE) Create the `core` app package with `__init__.py`
 - [ ] **1.1.2** (BE) Implement `TimeStampedModel` abstract base model with `created_at` and `updated_at` auto-populated fields
 - [ ] **1.1.3** (BE) Implement `UUIDModel` abstract base model with UUID v4 primary key, combined with `TimeStampedModel` into a single `BaseModel`
 - [ ] **1.1.4** (BE) Implement `IsOwnerPermission` DRF permission class — request-level check that `user.role == OWNER`
