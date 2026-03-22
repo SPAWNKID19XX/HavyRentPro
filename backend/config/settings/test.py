@@ -1,14 +1,15 @@
-from .base import *  # noqa: F403   
+from .base import *  # noqa: F403
+
 SECRET_KEY = "test-secret-key"
 DEBUG = True
 ALLOWED_HOSTS = ["*"]
-DATABASES = {                                                                                      
-    "default": {                                                                                   
+DATABASES = {
+    "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "hrp",                                     
+        "NAME": "hrp",
         "USER": "postgres",
         "PASSWORD": "postgres",
-        "HOST": "localhost",                                                                       
-        "PORT": "5432",                                                                            
-    }                                                                                              
-}    
+        "HOST": "localhost",
+        "PORT": "5432",
+    }
+}
