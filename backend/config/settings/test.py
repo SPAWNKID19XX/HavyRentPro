@@ -1,4 +1,4 @@
-from .base import *
+from .base import *  # noqa: F403   
 SECRET_KEY = "test-secret-key"
 DEBUG = True
 ALLOWED_HOSTS = ["*"]
