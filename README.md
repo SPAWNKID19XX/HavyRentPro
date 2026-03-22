@@ -191,8 +191,8 @@ Tasks are labeled `(BE)` backend, `(FE)` frontend, or `(INFRA)` infrastructure. 
 #### 1.1 `core` App — Shared Utilities
 
 - [OK] **1.1.1** (BE) Create the `core` app package with `__init__.py`
-- [ ] **1.1.2** (BE) Implement `TimeStampedModel` abstract base model with `created_at` and `updated_at` auto-populated fields
-- [ ] **1.1.3** (BE) Implement `UUIDModel` abstract base model with UUID v4 primary key, combined with `TimeStampedModel` into a single `BaseModel`
+- [OK] **1.1.2** (BE) Implement `TimeStampedModel` abstract base model with `created_at` and `updated_at` auto-populated fields
+- [OK] **1.1.3** (BE) Implement `UUIDModel` abstract base model with UUID v4 primary key, combined with `TimeStampedModel` into a single `BaseModel`
 - [ ] **1.1.4** (BE) Implement `IsOwnerPermission` DRF permission class — request-level check that `user.role == OWNER`
 - [ ] **1.1.5** (BE) Implement `IsTenantPermission` DRF permission class — request-level check that `user.role == TENANT`
 - [ ] **1.1.6** (BE) Implement `IsObjectOwnerPermission` DRF object-level permission — checks `obj.owner == request.user`

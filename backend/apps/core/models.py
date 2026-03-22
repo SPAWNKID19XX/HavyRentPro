@@ -1,6 +1,6 @@
 from django.db import models
+import uuid
 
-# Create your models here.
 class TimeStampedModel(models.Model):
   
   created_at = models.DateTimeField(
@@ -13,3 +13,19 @@ class TimeStampedModel(models.Model):
 
   class Meta:
     abstract=True
+
+class UUIDModel(models.Model):
+  id = models.UUIDField(
+    primary_key=True,
+    editable=False,
+    default=uuid.uuid4
+  )
+
+  class Meta:
+    abstract=True
+
+
+class BaseModel(UUIDModel, TimeStampedModel):
+  class Meta:
+    abstract=True
+
