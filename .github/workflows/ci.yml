@@ -55,7 +55,10 @@ jobs:
       - name: Run migrations
         run: python backend/manage.py migrate                                                 
       - name: Run tests 
-        run: cd backend && pytest --cov=. -p no:cacheprovider; [ $? -eq 5 ] && exit 0 || exit $?  
+        run: |
+          cd backend
+          pytest --cov=. || EXIT_CODE=$?
+          [ "${EXIT_CODE:-0}" -eq 5 ] && exit 0 || exit "${EXIT_CODE:-0}"     
       - name: Upload coverage                                                                            
         uses: actions/upload-artifact@v5
         with:                                                                                            
