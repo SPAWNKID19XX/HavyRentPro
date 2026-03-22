@@ -161,28 +161,28 @@ Tasks are labeled `(BE)` backend, `(FE)` frontend, or `(INFRA)` infrastructure. 
 
 #### Docker and Nginx
 
-- [ ] **5.2.1** (INFRA) Create `docker/backend/Dockerfile` — Python 3.11-slim base, install system deps including WeasyPrint dependencies (libpango, libcairo, libgdk-pixbuf), pip install requirements, expose 8000, CMD daphne
-- [ ] **5.2.2** (INFRA) Create `docker/backend/entrypoint.sh` — wait for PostgreSQL readiness, run migrate, collectstatic, then execute CMD
-- [ ] **5.2.3** (INFRA) Create `docker/frontend/Dockerfile` — Node 20-alpine base, multi-stage: dev target uses Vite dev server, prod target builds with Vite and serves via Nginx
-- [ ] **5.2.4** (INFRA) Create `docker/nginx/nginx.conf` — proxy `/api/`, `/admin/`, `/ws/` to backend (with WebSocket upgrade headers for `/ws/`); serve `/media/` from volume; proxy `/*` to frontend
-- [ ] **5.2.5** (INFRA) Create `docker/nginx/Dockerfile` — FROM nginx:alpine, copy config
-- [ ] **5.2.6** (INFRA) Create `docker-compose.yml` with all 8 services, named networks, and named volumes (`postgres_data`, `media_data`)
-- [ ] **5.2.7** (INFRA) Create `docker-compose.override.yml` for dev — mount backend source for hot reload, mount frontend src for HMR, set DEBUG=1
-- [ ] **5.2.8** (INFRA) Create `.env.example` with all required env vars: `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `DATABASE_URL`, `REDIS_URL`, `SECRET_KEY`, `DEBUG`, `ALLOWED_HOSTS`, `CELERY_BROKER_URL`, `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`, `FRONTEND_URL`
-- [ ] **5.2.9** (INFRA) Create `Makefile` with targets: `up`, `down`, `build`, `test-be`, `test-fe`, `migrate`, `shell`, `logs`, `seed`
-- [ ] **5.2.10** (INFRA) Verify `docker-compose up` starts all 8 services without errors
+- [OK] **5.2.1** (INFRA) Create `docker/backend/Dockerfile` — Python 3.11-slim base, install system deps including WeasyPrint dependencies (libpango, libcairo, libgdk-pixbuf), pip install requirements, expose 8000, CMD daphne
+- [OK] **5.2.2** (INFRA) Create `docker/backend/entrypoint.sh` — wait for PostgreSQL readiness, run migrate, collectstatic, then execute CMD
+- [OK] **5.2.3** (INFRA) Create `docker/frontend/Dockerfile` — Node 20-alpine base, multi-stage: dev target uses Vite dev server, prod target builds with Vite and serves via Nginx
+- [OK] **5.2.4** (INFRA) Create `docker/nginx/nginx.conf` — proxy `/api/`, `/admin/`, `/ws/` to backend (with WebSocket upgrade headers for `/ws/`); serve `/media/` from volume; proxy `/*` to frontend
+- [OK] **5.2.5** (INFRA) Create `docker/nginx/Dockerfile` — FROM nginx:alpine, copy config
+- [OK] **5.2.6** (INFRA) Create `docker-compose.yml` with all 8 services, named networks, and named volumes (`postgres_data`, `media_data`)
+- [OK] **5.2.7** (INFRA) Create `docker-compose.override.yml` for dev — mount backend source for hot reload, mount frontend src for HMR, set DEBUG=1
+- [OK] **5.2.8** (INFRA) Create `.env.example` with all required env vars: `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `DATABASE_URL`, `REDIS_URL`, `SECRET_KEY`, `DEBUG`, `ALLOWED_HOSTS`, `CELERY_BROKER_URL`, `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`, `FRONTEND_URL`
+- [OK] **5.2.9** (INFRA) Create `Makefile` with targets: `up`, `down`, `build`, `test-be`, `test-fe`, `migrate`, `shell`, `logs`, `seed`
+- [OK] **5.2.10** (INFRA) Verify `docker-compose up` starts all 8 services without errors
 
 #### GitHub Actions CI
 
-- [ ] **6.2.1** (INFRA) Create `.github/workflows/ci.yml` — triggers on push to `master`/`develop` and PRs to `master`; runs 5 parallel jobs
-- [ ] **6.2.2** (INFRA) Implement `backend-lint` job — setup Python 3.11, install Ruff, run `ruff check backend/` and `ruff format --check backend/`
-- [ ] **6.2.3** (INFRA) Implement `backend-test` job — spin up postgres:15 and redis:7 services with health checks, install requirements, run pytest with coverage, upload coverage artifact
+- [OK] **6.2.1** (INFRA) Create `.github/workflows/ci.yml` — triggers on push to `master`/`develop` and PRs to `master`; runs 5 parallel jobs
+- [OK] **6.2.2** (INFRA) Implement `backend-lint` job — setup Python 3.11, install Ruff, run `ruff check backend/` and `ruff format --check backend/`
+- [OK] **6.2.3** (INFRA) Implement `backend-test` job — spin up postgres:16 and redis:7 services with health checks, install requirements, run pytest with coverage, upload coverage artifact
 - [ ] **6.2.4** (INFRA) Implement `frontend-lint` job — setup Node 20, cache node_modules, `npm ci`, run ESLint and `tsc --noEmit`
 - [ ] **6.2.5** (INFRA) Implement `frontend-test` job — setup Node 20, `npm ci`, run Vitest with coverage
 - [ ] **6.2.6** (INFRA) Implement `frontend-build` job — setup Node 20, `npm ci`, run Vite production build
-- [ ] **6.2.7** (INFRA) Create `backend/pytest.ini` (or `pyproject.toml` pytest section) — set `DJANGO_SETTINGS_MODULE=config.settings.test`, `python_files=test_*.py`, verbosity flags
+- [OK] **6.2.7** (INFRA) Create `backend/pytest.ini` (or `pyproject.toml` pytest section) — set `DJANGO_SETTINGS_MODULE=config.settings.test`, `python_files=test_*.py`, verbosity flags
 - [ ] **6.2.8** (INFRA) Create `backend/conftest.py` placeholder — shared fixtures will be filled in Phase 7
-- [ ] **6.2.9** (BE) Create `config/settings/test.py` — inherit from base, use in-memory file storage, console email backend, `CELERY_TASK_ALWAYS_EAGER=True`, disabled throttling, MD5 password hasher
+- [OK] **6.2.9** (BE) Create `config/settings/test.py` — inherit from base, use in-memory file storage, console email backend, `CELERY_TASK_ALWAYS_EAGER=True`, disabled throttling, MD5 password hasher
 
 ---
 

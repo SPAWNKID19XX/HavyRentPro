@@ -71,6 +71,7 @@ instance/
 # Sphinx documentation
 docs/_build/
 
+.DS_Store
 # PyBuilder
 .pybuilder/
 target/
@@ -206,3 +207,4 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 .vscode/
+hrp/

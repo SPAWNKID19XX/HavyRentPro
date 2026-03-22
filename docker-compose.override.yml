@@ -1,0 +1,14 @@
+services:
+  app:                                                                                               
+    environment:
+      DEBUG: 1                                                                                       
+    volumes:                                                                                         
+      - ./backend:/app
+
+
+  frontend:                                                                                          
+    build:                                                  
+      context: ./frontend                                                                       
+      target: dev
+    volumes:                                                                                         
+      - ./frontend:/app  

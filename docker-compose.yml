@@ -1,0 +1,128 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16
+    container_name: heavyrentpro_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: heavyrentpro
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - heavyrent_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: heavyrentpro_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - heavyrent_network
+    volumes:
+      - redis_data:/data
+
+  app:
+    build:                                                                    
+      context: ./backend                                                                               
+      dockerfile: ../docker/backend/Dockerfile
+    container_name: heavyrentpro_app
+    depends_on:
+      - db
+      - redis
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/heavyrentpro
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - media_data:/app/media
+    networks:
+      - heavyrent_network
+
+  celery-worker:
+    build:                                                                    
+      context: ./backend                                                                               
+      dockerfile: ../docker/backend/Dockerfile
+    container_name: heavyrentpro_celery_worker
+    depends_on:
+      - db
+      - redis
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/heavyrentpro
+    volumes:
+      - .:/app
+    networks:
+      - heavyrent_network
+    command: celery -A config worker -l info
+
+  celery-beat:
+    build:                                                                    
+      context: ./backend                                                                               
+      dockerfile: ../docker/backend/Dockerfile
+    container_name: heavyrentpro_celery_beat
+    depends_on:
+      - db
+      - redis
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/heavyrentpro
+    volumes:
+      - .:/app
+    networks:
+      - heavyrent_network
+    command: celery -A config beat -l info
+
+  frontend:
+    build:                                                  
+      context: ./frontend                                                                            
+      dockerfile: ../docker/frontend/Dockerfile     
+    container_name: heavyrentpro_frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    networks:
+      - heavyrent_network
+    depends_on:
+      - app
+
+  nginx:
+    build:                                                                                           
+      context: ./docker/nginx                                                                        
+      dockerfile: Dockerfile 
+    container_name: heavyrentpro_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - app
+      - frontend
+    volumes:
+      - media_data:/app/media
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - heavyrent_network
+  flower:
+    build:                                                                    
+      context: ./backend                                                                               
+      dockerfile: ../docker/backend/Dockerfile                                                                      
+    container_name: heavyrentpro_flower                     
+    depends_on:                        
+      - redis  
+    ports:                                                                                           
+      - "5555:5555"                                                                                  
+    networks:                                                                                        
+      - heavyrent_network                                                                            
+    command: celery -A config flower  
+
+volumes:
+  postgres_data:
+  redis_data:
+  media_data:
+
+networks:
+  heavyrent_network:
+    driver: bridge

@@ -1,0 +1,82 @@
+name: CI
+
+on: 
+  push:
+    branches: [master, backend, cicd-actions]
+
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      redis: 
+        image: redis:latest
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      postgres:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: hrp
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    strategy:
+      matrix:
+        python-version: ["3.12", "3.13"]
+
+
+    env:
+      DJANGO_SETTINGS_MODULE: config.settings.test
+
+    steps:
+      - uses: actions/checkout@v5
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      # You can test your matrix by printing the current Python version
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+      - name: Install deps
+        run: pip install -r backend/requirements.txt                                            
+      - name: Run migrations
+        run: python backend/manage.py migrate                                                 
+      - name: Run tests
+        run: cd backend && pytest --cov=  
+      - name: Upload coverage                                                                            
+        uses: actions/upload-artifact@v5
+        with:                                                                                            
+          name: coverage-${{ matrix.python-version }}                                                    
+          path: backend/.coverage                                                        
+          
+
+  backend-lint:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v5
+      - name: Set up Python                                                                        
+        uses: actions/setup-python@v5                                                              
+        with:
+          python-version: "3.12"  
+      - name: Install Ruff
+        run: pip install ruff
+      - name: ruff check
+        run: ruff check backend/   
+      - name: ruff format
+        run: ruff format --check backend/
+
+  
+    
